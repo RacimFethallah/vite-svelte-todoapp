@@ -1,22 +1,29 @@
 <script lang="ts">
-	let todo = '';
+	let todo = $state('');
 
-	export let handleAddTodo: (newTodo: string) => void;
-
-	function addTodo() {
-		if (todo.trim()) {
-			handleAddTodo(todo);
-			todo = ''; // Reset the input field
-		}
-	}
+	let { handleAddTodo } = $props<{}>();
 </script>
 
 <div class="my-4">
 	<input
+		onkeydown={(e) => {
+			if (e.key === 'Enter') {
+				handleAddTodo(todo);
+				todo = '';
+			}
+		}}
 		bind:value={todo}
 		type="text"
 		placeholder="Add a new todo"
 		class="p-2 border rounded mr-2"
 	/>
-	<button class="bg-blue-500 text-white p-2 rounded" on:click={addTodo}> Add Todo </button>
+	<button
+		class="bg-blue-500 text-white p-2 rounded"
+		onclick={() => {
+			handleAddTodo(todo);
+			todo = '';
+		}}
+	>
+		Add Todo
+	</button>
 </div>

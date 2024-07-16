@@ -2,16 +2,16 @@
 	import TodoForm from '../components/TodoForm.svelte';
 	import TodoList from '../components/TodoList.svelte';
 
-	let todos: Todo[] = [];
+	let todos: Todo[] = $state([]);
 
 	function addTodo(title: string) {
 		if (title) {
-			todos = [...todos, { id: Date.now(), title, completed: false }];
+			todos.push({
+				id: todos.length + 1,
+				title,
+				completed: false
+			});
 		}
-	}
-
-	function removeTodo(id: number) {
-		todos = todos.filter((todo) => todo.id !== id);
 	}
 </script>
 
